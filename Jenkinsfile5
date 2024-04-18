@@ -1,0 +1,57 @@
+import java.text.SimpleDateFormat
+pipeline
+{
+    agent any
+    tools
+    {
+        maven 'Maven'
+    }
+    options
+    {
+        timeout(time:10, unit: 'MINUTES')
+    }
+
+    stages
+    {
+        stage("Fecha")
+        {
+            steps
+            {
+                script
+                {
+                    dia = new Date().getDay()
+                    dia_actual = new Date()
+                    formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+                    fechaConFormato = formato.format(dia_actual)
+                    mapa= [1: "Lunes", 2:"Martes", 3: "Miercoles", 4:"Jueves", 5:"Viernes", 6: "Sabado", 7:"Domingo"]
+                    println "El dia actual es: " + mapa[dia]
+                    println "La fecha con el nuevo formato es " +fechaConFormato
+                }
+            }
+        }
+
+        stage("Lunes")
+        {
+            steps
+            {
+                script
+                {
+                    if(mapa[dia] == "Lunes")
+                    {
+                    num1= 1
+                    num2= 2
+                    num3= 3
+                    println "El numero 1 es " + num1
+                    println "El numero 2 es " + num2
+                    println "El numero 3 es " + num3
+                    suma == num1 + num2 + num3
+                    resta == num1 + num3 - num2
+                    println "La suma es " + suma
+                    println "La resta es " + resta
+
+                    }
+                }
+            }
+        }
+    }
+}
